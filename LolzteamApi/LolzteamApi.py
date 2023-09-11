@@ -4274,9 +4274,11 @@ class LolzteamApi:
                     "password": password,
                     "login_password": login_password
                 }
-                for key, value in extra.items():
-                    es = f"extra[{key}]"
-                    params[es] = value
+                #При extra = None происходит ошибка ('NoneType' object has no attribute 'items'), предлагаю сделать проверку (if extra is not None:)
+                if extra is not None:
+                    for key, value in extra.items():
+                        es = f"extra[{key}]"
+                        params[es] = value
                 return LolzteamApi.send_request(self=self.__api, method="POST", url=url, params=params)
 
             # Copy of __Managing.edit
